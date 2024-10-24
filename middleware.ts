@@ -18,5 +18,5 @@ export function middleware(request: NextRequest) {
 
 // Configuration for matching specific paths
 export const config = {
-  matcher: "/movie/:path*", // This will match all paths under /movie
+  matcher: "/about/:path*", // This will match all paths under /movie
 }
