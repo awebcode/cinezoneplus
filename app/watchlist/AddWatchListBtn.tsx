@@ -4,7 +4,7 @@ import React, { useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { ShoppingBasket } from "lucide-react"
 import { useSession } from "next-auth/react"
-import { useFormState } from "react-dom"
+import { useFormState, useFormStatus } from "react-dom"
 
 import { cn } from "@/lib/utils"
 import { Button, buttonVariants } from "@/components/ui/button"
@@ -18,7 +18,7 @@ interface WatchListParams {
 const AddWatchListBtn = ({
   params: { id, type = "movie" },
 }: WatchListParams) => {
-  const [state, action, isPending] = useFormState(saveWatchlist, {})
+  const [state, action] = useFormState(saveWatchlist, {})
   const router = useRouter()
 
   const { data: session } = useSession()
@@ -59,12 +59,26 @@ const AddWatchListBtn = ({
   }, [state?.message])
 
   return (
-    <Button className={cn(buttonVariants())} onClick={saveData}>
-      {" "}
-      <ShoppingBasket className="mr-2 size-4" />{" "}
-      {isPending ? "Saving..." : "Add to watchlist"}
-    </Button>
+    <form action={saveData}>
+      <PendingButton />
+    </form>
   )
 }
 
 export default AddWatchListBtn
+
+const PendingButton = () => {
+  const { pending } = useFormStatus()
+  return (
+    <Button
+      type="submit"
+      className={cn(buttonVariants())}
+      aria-disabled={pending}
+      disabled={pending}
+    >
+      {" "}
+      <ShoppingBasket className="mr-2 size-4" />{" "}
+      {pending ? "Adding..." : "Add to watchlist"}
+    </Button>
+  )
+}

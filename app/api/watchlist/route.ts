@@ -1,6 +1,6 @@
 import fs from "fs"
 import path from "path"
-import type { NextRequest } from "next/server"
+import { NextResponse, type NextRequest } from "next/server"
 
 import type { WatchListMovie } from "@/types/movie"
 
@@ -13,9 +13,12 @@ export async function GET() {
     // Read the watchlist from the JSON file
     const data = fs.readFileSync(watchlistFilePath, "utf8")
     const watchlists: WatchListMovie[] = JSON.parse(data)
-    return Response.json({ watchlists }, { status: 200 })
+    return NextResponse.json({ watchlists }, { status: 200 })
   } catch (error) {
-    return Response.json({ error: "Error reading watchlist" }, { status: 500 })
+    return NextResponse.json(
+      { error: "Error reading watchlist" },
+      { status: 500 }
+    )
   }
 }
 
@@ -34,9 +37,9 @@ export async function POST(request: NextRequest) {
     // Write updated watchlist back to JSON file
     fs.writeFileSync(watchlistFilePath, JSON.stringify(watchlist, null, 2))
 
-    return Response.json(watchlist, { status: 201 })
+    return NextResponse.json(watchlist, { status: 201 })
   } catch (error) {
-    return Response.json(
+    return NextResponse.json(
       { error: "Error adding movie to watchlist" },
       { status: 500 }
     )
@@ -59,9 +62,9 @@ export async function DELETE(request: NextRequest) {
       JSON.stringify(updatedWatchlist, null, 2)
     )
 
-    return Response.json(updatedWatchlist, { status: 200 })
+    return NextResponse.json(updatedWatchlist, { status: 200 })
   } catch (error) {
-    return Response.json(
+    return NextResponse.json(
       { error: "Error removing movie from watchlist" },
       { status: 500 }
     )
