@@ -43,8 +43,10 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
       className={cn("size-full rounded-full bg-muted object-cover", className)}
       src={src}
       alt={alt}
-      priority={priority}
+      // priority={priority}
       unoptimized
+      loading="lazy"
+      objectFit="cover"
       fill
     />
   )

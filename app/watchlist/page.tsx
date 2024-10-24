@@ -1,6 +1,7 @@
 // components/Watchlist.tsx
 
 import React from "react"
+import Image from "next/image"
 import { auth } from "@/auth"
 import { tmdbImage } from "@/tmdb/utils"
 
@@ -27,16 +28,20 @@ const Watchlist: React.FC = async () => {
           {watchlist.map((movie) => (
             <li
               key={movie.id}
-              className="flex items-start gap-2 rounded-lg border border-gray-300 bg-white p-4 shadow-sm transition-shadow hover:shadow-lg"
+              className="flex flex-wrap items-start gap-2 rounded-lg border border-gray-300 bg-white p-2 shadow-sm transition-shadow hover:shadow-lg md:flex-nowrap md:p-4"
             >
-              <img
+              <Image
                 src={
                   movie.poster_path
                     ? tmdbImage.poster(movie.poster_path, "w500")
                     : ""
                 }
+                height={1000}
+                width={500}
                 alt={movie.title}
-                className="mr-6 h-36 w-32 rounded-md object-cover"
+                className="h-48 w-full rounded-md object-cover md:mr-6 md:h-36 md:w-32"
+                loading="lazy"
+                objectFit="cover"
               />
               <div className="grow gap-2">
                 <h3 className="text-xl font-semibold text-gray-800">

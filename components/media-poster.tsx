@@ -48,6 +48,7 @@ export const MediaPoster: React.FC<MediaPosterProps> = ({
       alt={alt}
       priority={priority}
       unoptimized
+      objectFit="cover"
       fill
     />
   )

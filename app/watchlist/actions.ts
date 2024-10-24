@@ -105,5 +105,5 @@ export const getWatchlist = unstable_cache(
     }
   },
   ["watchlist"],
-  { revalidate: 3600, tags: ["watchlist"] }
+  { revalidate: 10, tags: ["watchlist"] }
 )

@@ -25,6 +25,8 @@ export const VideoCard: React.FC<VideoCardProps> = ({
       src={yt.thumbnail(ytKey)}
       alt={name}
       unoptimized
+      loading="lazy"
+      objectFit="cover"
       fill
     />
     <div className="overlay">

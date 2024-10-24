@@ -47,6 +47,8 @@ export const MediaImages: React.FC<MediaImagesProps> = ({
                 alt={file_path}
                 className="size-full rounded-md border"
                 unoptimized
+                loading="lazy"
+                objectFit="cover"
                 fill
               />
 
@@ -67,6 +69,8 @@ export const MediaImages: React.FC<MediaImagesProps> = ({
                 alt={file_path}
                 className="rounded-md border bg-muted"
                 unoptimized
+                loading="lazy"
+                objectFit="cover"
                 fill
               />
             </div>
