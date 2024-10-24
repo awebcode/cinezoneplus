@@ -17,9 +17,11 @@ export const MediaTrailerDialog: React.FC<MediaTrailerDialogProps> = ({
 
   return (
     <Dialog modal>
-      <DialogTrigger className={cn(buttonVariants())} disabled={!trailer}>
-        <Play className="mr-2 size-4" /> Watch Trailer
-      </DialogTrigger>
+      <div className="flex items-center gap-2">
+        <DialogTrigger className={cn(buttonVariants())} disabled={!trailer}>
+          <Play className="mr-2 size-4" /> Watch Trailer
+        </DialogTrigger>
+      </div>
 
       {trailer && (
         <DialogContent className="max-w-screen-lg">

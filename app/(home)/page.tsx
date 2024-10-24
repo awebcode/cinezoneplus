@@ -13,7 +13,7 @@ export default async function Home() {
   const { results: movies } = await tmdb.trending.movie({
     time: "day",
     page: "1",
-  });
+  })
 
   const { results: tvShows } = await tmdb.trending.tv({
     time: "day",

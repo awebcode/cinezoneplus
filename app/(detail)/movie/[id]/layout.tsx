@@ -5,16 +5,19 @@ import { WithVideos } from "@/tmdb/api/types"
 import { format } from "@/tmdb/utils"
 
 import { Tabs, TabsLink, TabsList } from "@/components/ui/tabs"
+import DetailRecommendations from "@/components/DetailsRecmmendations"
 import { MediaBackdrop } from "@/components/media-backdrop"
 import { MediaDetailView } from "@/components/media-detail-view"
 import { MediaPoster } from "@/components/media-poster"
 import { MediaRating } from "@/components/media-rating"
 import { MediaTrailerDialog } from "@/components/media-trailer-dialog"
+import WishList from "@/app/(detail)/watchlist/WatchList"
 
 interface DetailLayoutProps {
   params: {
     id: string
   }
+
   children: React.ReactNode
 }
 
@@ -90,7 +93,10 @@ export default async function DetailLayout({
             dangerouslySetInnerHTML={{ __html: format.content(overview) }}
           />
 
-          <MediaTrailerDialog videos={videos?.results} />
+          <div className="flex gap-2">
+            <MediaTrailerDialog videos={videos?.results} />
+            <WishList params={{ id, type: "movie" }} />
+          </div>
         </div>
       </MediaDetailView.Hero>
 
@@ -113,6 +119,9 @@ export default async function DetailLayout({
         </Tabs>
 
         <div className="mt-4">{children}</div>
+        <DetailRecommendations
+          params={{ id: String(id) || params.id, type: "movie" }}
+        />
       </MediaDetailView.Content>
     </MediaDetailView.Root>
   )

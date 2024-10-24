@@ -10,15 +10,17 @@
  * @type {string}
  */
 const baseUrl: string = "https://api.themoviedb.org/3"
+const baseAppUrl: string =
+  process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
 
 /**
  * Default headers for API requests.
- * Includes the Content-Type and Authorization constructed using the TMDB_KEY environment variable.
+ * Includes the Content-Type and Authorization constructed using the NEXT_PUBLIC_TMDB_KEY environment variable.
  * @type {Record<string, string>}
  */
 const defaultHeaders: Record<string, string> = {
   "Content-Type": "application/json",
-  Authorization: `Bearer ${process.env.TMDB_KEY}`,
+  Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_KEY}`,
 }
 
 /**
@@ -37,10 +39,12 @@ const defaultParams: Record<string, string> = {
  */
 const apiConfig: {
   baseUrl: string
+  baseAppUrl: string
   defaultHeaders: Record<string, string>
   defaultParams: Record<string, string>
 } = {
   baseUrl,
+  baseAppUrl,
   defaultHeaders,
   defaultParams,
 }

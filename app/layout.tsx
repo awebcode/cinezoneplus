@@ -1,6 +1,9 @@
 import "@/styles/globals.css"
 import { Metadata } from "next"
+import { auth } from "@/auth"
 import { siteConfig } from "@/config"
+import { AuthProvider } from "@/providers/AuthProvider"
+import QueryProvider from "@/providers/QueryProvider"
 import { GoogleAnalytics } from "@next/third-parties/google"
 import { Analytics } from "@vercel/analytics/next"
 import { GeistSans } from "geist/font/sans"
@@ -32,7 +35,8 @@ interface RootLayoutProps {
   children: React.ReactNode
 }
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default async function RootLayout({ children }: RootLayoutProps) {
+  const session = await auth()
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
@@ -48,10 +52,14 @@ export default function RootLayout({ children }: RootLayoutProps) {
             className="relative flex min-h-screen flex-col bg-background"
             vaul-drawer-wrapper=""
           >
-            <GridBg />
-            <SiteHeader />
-            <div className="relative flex-1 py-4">{children}</div>
-            <SiteFooter />
+            <QueryProvider>
+              <AuthProvider session={session}>
+                <GridBg />
+                <SiteHeader />
+                <div className="relative flex-1 py-4">{children}</div>
+                <SiteFooter />
+              </AuthProvider>
+            </QueryProvider>
           </div>
           <TailwindIndicator />
           <ScrollTop />
