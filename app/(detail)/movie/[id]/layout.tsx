@@ -11,7 +11,7 @@ import { MediaDetailView } from "@/components/media-detail-view"
 import { MediaPoster } from "@/components/media-poster"
 import { MediaRating } from "@/components/media-rating"
 import { MediaTrailerDialog } from "@/components/media-trailer-dialog"
-import WishList from "@/app/(detail)/watchlist/WatchList"
+import AddWatchListBtn from "@/app/watchlist/AddWatchListBtn"
 
 interface DetailLayoutProps {
   params: {
@@ -95,7 +95,7 @@ export default async function DetailLayout({
 
           <div className="flex gap-2">
             <MediaTrailerDialog videos={videos?.results} />
-            <WishList params={{ id, type: "movie" }} />
+            <AddWatchListBtn params={{ id, type: "movie" }} />
           </div>
         </div>
       </MediaDetailView.Hero>

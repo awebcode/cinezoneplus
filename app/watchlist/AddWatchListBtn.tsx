@@ -15,7 +15,9 @@ import { saveWatchlist } from "./actions"
 interface WatchListParams {
   params: { id: number; type: "tv" | "movie" }
 }
-const WishList = ({ params: { id, type = "movie" } }: WatchListParams) => {
+const AddWatchListBtn = ({
+  params: { id, type = "movie" },
+}: WatchListParams) => {
   const [state, action, isPending] = useFormState(saveWatchlist, {})
   const router = useRouter()
 
@@ -65,4 +67,4 @@ const WishList = ({ params: { id, type = "movie" } }: WatchListParams) => {
   )
 }
 
-export default WishList
+export default AddWatchListBtn

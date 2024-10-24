@@ -11,3 +11,8 @@ export type WatchListMovie = {
   createdAt: Date
   updatedAt: Date
 }
+
+export interface WatchListReturnType {
+  success?: boolean
+  message?: string
+}
