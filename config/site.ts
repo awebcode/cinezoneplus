@@ -18,7 +18,7 @@ import { pages } from "@/config/pages"
 export type SiteConfig = typeof siteConfig
 
 export const siteConfig = {
-  name: "Movies App",
+  name: "CINEZONE+ -  Movies",
   description:
     "Millions of movies, TV shows and people to discover. Explore now.",
   mainNav: [
