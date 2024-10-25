@@ -96,7 +96,7 @@ export const removeWatchlist = async (movieId: number) => {
  * Get the user's watchlist.
  */
 export const getWatchlist = unstable_cache(
-  async (userId: string) => {
+  async (userId: string): Promise<WatchListMovie[]> => {
     try {
       const watchlist = await prisma.watchList.findMany({ where: { userId } })
       return serializeWatchlist(watchlist)

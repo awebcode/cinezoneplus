@@ -58,6 +58,7 @@
 
 "use client"
 
+import React, { useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
 // import { auth } from "@/auth"
@@ -66,6 +67,7 @@ import { useSession } from "next-auth/react"
 
 import { Label } from "@/components/ui/label"
 import LogoutButton from "@/components/logout-button"
+import { getWatchlistCount } from "@/app/watchlist/actions"
 
 import UserLoadingSkeleton from "./skeletons/user-settings-skeleton"
 
@@ -76,6 +78,17 @@ export const UserSettings = () => {
 
   // const session = await auth()
   const { data: session, status } = useSession()
+  const [watchListCount, setWatchListCount] = React.useState(0)
+
+  useEffect(() => {
+    if (session) {
+      const getCount = async () => {
+        const count = await getWatchlistCount(session.user?.id)
+        setWatchListCount(count)
+      }
+      getCount()
+    }
+  }, [session, watchListCount])
 
   if (status === "loading") {
     return <UserLoadingSkeleton />
@@ -107,9 +120,7 @@ export const UserSettings = () => {
           </div>
           <Link href="/watchlist" className="flex  items-center gap-2">
             <ShoppingBasket className="mr-2 size-5" /> Watchlist{" "}
-            {session.user?.watchListCount > 0 ? (
-              <span>({session.user?.watchListCount})</span>
-            ) : null}
+            {watchListCount > 0 ? <span>({watchListCount})</span> : null}
           </Link>
           <div className="mt-6 w-full">
             <LogoutButton />
