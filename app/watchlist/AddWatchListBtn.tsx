@@ -56,7 +56,7 @@ const AddWatchListBtn = ({
     } else if (state.message) {
       toast({ title: state.message, variant: "destructive" })
     }
-  }, [state?.message])
+  }, [state])
 
   return (
     <form action={saveData}>

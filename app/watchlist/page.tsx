@@ -34,7 +34,7 @@ const Watchlist: React.FC = async () => {
                   height={1000}
                   width={500}
                   alt={movie.title}
-                  className="h-48 w-full rounded-md object-cover md:mr-6 md:h-36 md:w-32"
+                  className="h-48 w-full  rounded-md object-cover md:mr-6 md:h-32 md:w-36"
                   priority
                   unoptimized
                   objectFit="cover"

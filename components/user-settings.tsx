@@ -118,7 +118,7 @@ export const UserSettings = () => {
               </span>
             </div>
           </div>
-          <Link href="/watchlist" className="flex  items-center gap-2">
+          <Link href="/watchlist" className="flex  items-center gap-2" prefetch>
             <ShoppingBasket className="mr-2 size-5" /> Watchlist{" "}
             {watchListCount > 0 ? <span>({watchListCount})</span> : null}
           </Link>
