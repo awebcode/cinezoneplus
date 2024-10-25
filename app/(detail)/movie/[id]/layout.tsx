@@ -1,3 +1,4 @@
+import { unstable_cache } from "next/cache"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { tmdb } from "@/tmdb/api"
@@ -30,13 +31,51 @@ export async function generateMetadata({ params }: DetailLayoutProps) {
     title,
   }
 }
+export const revalidate = 1
+// Define a cacheable function for TMDB movie details
+const getMovieDetails = unstable_cache(
+  async (id: string) => {
+    const {
+      id: movieId,
+      title,
+      overview,
+      genres,
+      vote_average,
+      vote_count,
+      backdrop_path,
+      poster_path,
+      release_date,
+      tagline,
+      videos,
+    } = await tmdb.movie.detail<WithVideos>({
+      id,
+      append: "videos",
+    })
 
+    return {
+      movieId,
+      title,
+      overview,
+      genres,
+      vote_average,
+      vote_count,
+      backdrop_path,
+      poster_path,
+      release_date,
+      tagline,
+      videos,
+    }
+  },
+  ["movie-detail"], //Unique cache key
+  {
+    revalidate: 60 * 60, //Cache revalidates every 1 hour (optional)
+  }
+)
 export default async function DetailLayout({
   params,
   children,
 }: DetailLayoutProps) {
   const {
-    id,
     title,
     overview,
     genres,
@@ -47,11 +86,8 @@ export default async function DetailLayout({
     release_date,
     tagline,
     videos,
-  } = await tmdb.movie.detail<WithVideos>({
-    id: params.id,
-    append: "videos",
-  })
-
+  } = await getMovieDetails(params.id)
+  const id = params.id
   if (!id) return notFound()
 
   return (
@@ -95,7 +131,7 @@ export default async function DetailLayout({
 
           <div className="flex gap-2">
             <MediaTrailerDialog videos={videos?.results} />
-            <AddWatchListBtn params={{ id, type: "movie" }} />
+            <AddWatchListBtn params={{ id: Number(id), type: "movie" }} />
           </div>
         </div>
       </MediaDetailView.Hero>
@@ -125,4 +161,14 @@ export default async function DetailLayout({
       </MediaDetailView.Content>
     </MediaDetailView.Root>
   )
+}
+
+export async function generateStaticParams() {
+  const posts = await tmdb.movie
+    .list({ list: "popular" })
+    .then((res) => res.results)
+
+  return posts.map((post) => ({
+    id: post.id.toString(),
+  }))
 }

@@ -23,7 +23,6 @@ interface DetailProps {
     id: string
   }
 }
-
 export async function generateMetadata({ params }: DetailProps) {
   const { name } = await tmdb.person.detail({
     id: params.id,
@@ -33,6 +32,7 @@ export async function generateMetadata({ params }: DetailProps) {
     title: name,
   }
 }
+export const revalidate = 1
 
 export default async function Detail({ params }: DetailProps) {
   const {
@@ -138,4 +138,14 @@ export default async function Detail({ params }: DetailProps) {
       </MediaDetailView.Content>
     </MediaDetailView.Root>
   )
+}
+
+export async function generateStaticParams() {
+  const posts = await tmdb.person
+    .list({ list: "popular" })
+    .then((res) => res.results)
+
+  return posts.map((post) => ({
+    id: post.id.toString(),
+  }))
 }

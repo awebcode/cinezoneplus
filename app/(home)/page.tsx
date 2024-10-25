@@ -8,7 +8,8 @@ import { TvHero } from "@/components/tv-hero"
 export const metadata: Metadata = {
   title: "Home",
 }
-
+export const dynamic = "force-static"
+export const revalidate = 1
 export default async function Home() {
   const { results: movies } = await tmdb.trending.movie({
     time: "day",

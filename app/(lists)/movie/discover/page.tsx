@@ -19,7 +19,8 @@ export async function generateMetadata() {
     description: pages.movie.discover.description,
   }
 }
-
+export const dynamic = "force-static" // Forces static rendering
+export const revalidate = 2
 export default async function Discover({ searchParams }: ListPageProps) {
   const region = cookies().get("region")?.value ?? "US"
 

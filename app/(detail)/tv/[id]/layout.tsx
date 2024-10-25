@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: DetailLayoutProps) {
     title: name,
   }
 }
-
+export const revalidate = 1
 export default async function DetailLayout({
   params,
   children,
@@ -128,4 +128,14 @@ export default async function DetailLayout({
       </MediaDetailView.Content>
     </MediaDetailView.Root>
   )
+}
+
+export async function generateStaticParams() {
+  const posts = await tmdb.tv
+    .list({ list: "popular" })
+    .then((res) => res.results)
+
+  return posts.map((post) => ({
+    id: post.id.toString(),
+  }))
 }

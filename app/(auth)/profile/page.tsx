@@ -3,7 +3,7 @@
 import React from "react"
 import Image from "next/image"
 import { redirect } from "next/navigation"
-import { auth, signOut } from "@/auth"
+import { auth } from "@/auth"
 
 import LogoutButton from "../../../components/logout-button"
 
@@ -14,11 +14,6 @@ const Profile = async () => {
   if (!session?.user) redirect("/sign-in")
 
   const { user } = session
-
-  const handleLogout = async () => {
-    "use server"
-    await signOut({ redirectTo: "/sign-in" })
-  }
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100">

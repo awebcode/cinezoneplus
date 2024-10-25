@@ -8,7 +8,7 @@ export default function middleware(req: NextRequest, res: NextResponse) {
     process.env.NODE_ENV === "production"
       ? "__Secure-authjs.session-token"
       : "authjs.session-token"
-  )
+  )?.value
   // Redirect based on authentication status
   const isAuthPage = ["/sign-in", "/sign-up"].includes(pathname)
   const isAuthenticated = !!token
