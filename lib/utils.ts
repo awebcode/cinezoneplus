@@ -118,3 +118,7 @@ export function filterDiscoverParams(
     )
   )
 }
+
+export async function pleseWait(ms: number) {
+  await new Promise((resolve) => setTimeout(resolve, ms))
+}

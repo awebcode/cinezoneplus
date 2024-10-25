@@ -107,3 +107,13 @@ export const getWatchlist = unstable_cache(
   ["watchlist"],
   { revalidate: 10, tags: ["watchlist"] }
 )
+
+export const getWatchlistCount = async (userId: string) => {
+  try {
+    const watchlistCount = await prisma.watchList.count({ where: { userId } })
+    return watchlistCount
+  } catch (error: any) {
+    console.error("Failed to get watchlist:", error)
+    throw new Error("Something went wrong")
+  }
+}

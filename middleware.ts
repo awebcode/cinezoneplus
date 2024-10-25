@@ -1,22 +1,28 @@
 // middleware.ts
 
-import { NextResponse, type NextRequest } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 
-export function middleware(request: NextRequest) {
-  // Log the incoming request URL
+export default function middleware(req: NextRequest, res: NextResponse) {
+  const { pathname, origin } = req.nextUrl
+  const token = req.cookies.get(
+    process.env.NODE_ENV === "production"
+      ? "__Secure-authjs.session-token"
+      : "authjs.session-token"
+  )
+  // Redirect based on authentication status
+  const isAuthPage = ["/sign-in", "/sign-up"].includes(pathname)
+  const isAuthenticated = !!token
 
-  // Get the current page parameter from the request URL, defaulting to "1"
-  const currentPage = request.nextUrl.searchParams.get("page") ?? "1"
+  if (!isAuthenticated && !isAuthPage) {
+    return NextResponse.redirect(new URL("/sign-in", origin))
+  }
 
-  // Set a custom header with the current page value
-  const response = NextResponse.next()
-  // response.headers.set("page", currentPage)
-  // response.headers.set("currentUrl", request.nextUrl.pathname)
-
-  return response
+  if (isAuthenticated && isAuthPage) {
+    return NextResponse.redirect(new URL("/profile", origin))
+  }
 }
 
-// Configuration for matching specific paths
+// Configuration to match specific paths
 export const config = {
-  matcher: "/about/:path*", // This will match all paths under /movie
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 }

@@ -1,3 +1,4 @@
+import { Suspense } from "react"
 import { cookies } from "next/headers"
 import { SettingsIcon } from "lucide-react"
 
@@ -11,7 +12,10 @@ import {
 import { RegionSelect } from "@/components/region-select"
 import { ThemeToggle } from "@/components/theme-toggle"
 
-export const SiteSettings = async () => {
+import UserLoadingSkeleton from "./skeletons/user-settings-skeleton"
+import { UserSettings } from "./user-settings"
+
+export const SiteSettings = () => {
   const region = cookies().get("region")?.value ?? "US"
 
   return (
@@ -35,6 +39,9 @@ export const SiteSettings = async () => {
             <Label className="text-xs text-muted-foreground">Theme</Label>
             <ThemeToggle />
           </div>
+          <Suspense fallback={<UserLoadingSkeleton />}>
+            <UserSettings />
+          </Suspense>
         </div>
       </PopoverContent>
     </Popover>

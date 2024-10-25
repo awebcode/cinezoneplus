@@ -5,6 +5,15 @@ import { Github, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export default function SignIn() {
+  const handleGoogleSignIn = async () => {
+    "use server"
+    await signIn("google", { redirectTo: "/profile" })
+  }
+
+  const handleGitHubSignIn = async () => {
+    "use server"
+    await signIn("github", { redirectTo: "/profile" })
+  }
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-4">
       <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
@@ -17,10 +26,7 @@ export default function SignIn() {
         <form className="space-y-4">
           <Button
             className="flex w-full items-center justify-center gap-2 bg-blue-500 text-white hover:bg-blue-600"
-            formAction={async () => {
-              "use server"
-              await signIn("google")
-            }}
+            formAction={handleGoogleSignIn}
             type="submit"
           >
             <Mail className="size-5" />
@@ -28,10 +34,7 @@ export default function SignIn() {
           </Button>
           <Button
             className="flex w-full items-center justify-center gap-2 bg-gray-800 text-white hover:bg-gray-900"
-            formAction={async () => {
-              "use server"
-              await signIn("github")
-            }}
+            formAction={handleGitHubSignIn}
             type="submit"
           >
             <Github className="size-5" />

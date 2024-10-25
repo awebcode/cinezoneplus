@@ -1,6 +1,5 @@
 import "@/styles/globals.css"
 import { Metadata } from "next"
-import { auth } from "@/auth"
 import { siteConfig } from "@/config"
 import { AuthProvider } from "@/providers/AuthProvider"
 import QueryProvider from "@/providers/QueryProvider"
@@ -15,6 +14,7 @@ import { GridBg } from "@/components/grid-bg"
 import { ScrollTop } from "@/components/scroll-top"
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
+import { SiteSettings } from "@/components/site-settings"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
 
@@ -34,9 +34,10 @@ export const metadata: Metadata = {
 interface RootLayoutProps {
   children: React.ReactNode
 }
-
+export const experimental_ppr = true
+export const dynamic = "force-static"
+// true | false
 export default async function RootLayout({ children }: RootLayoutProps) {
-  const session = await auth()
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
@@ -53,9 +54,11 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             vaul-drawer-wrapper=""
           >
             <QueryProvider>
-              <AuthProvider session={session}>
+              <AuthProvider>
                 <GridBg />
-                <SiteHeader />
+                <SiteHeader>
+                  <SiteSettings />
+                </SiteHeader>
                 <div className="relative flex-1 py-4">{children}</div>
                 <SiteFooter />
               </AuthProvider>

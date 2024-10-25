@@ -5,7 +5,7 @@ import React from "react"
 import { cn } from "@/lib/utils"
 
 interface RemoveWatchlistBtnProps
-  extends React.HTMLAttributes<HTMLAnchorElement> {
+  extends React.HTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode
   onClick: (params: any) => void
   params?: any
@@ -18,13 +18,14 @@ const RemoveWatchlistBtn = ({
   ...props
 }: RemoveWatchlistBtnProps) => {
   return (
-    <a
+    <button
       className={cn("cursor-pointer text-sm text-red-400 underline", className)}
       onClick={() => onClick(params)}
+      type="button"
       {...props}
     >
       {children}
-    </a>
+    </button>
   )
 }
 

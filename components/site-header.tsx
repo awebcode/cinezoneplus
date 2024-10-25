@@ -1,12 +1,19 @@
+"use client"
+
 import { Suspense } from "react"
 
 import { Skeleton } from "@/components/ui/skeleton"
 import { SearchInput } from "@/components/search-input"
 import { SiteMenu } from "@/components/site-menu"
 import { SiteNav } from "@/components/site-nav"
-import { SiteSettings } from "@/components/site-settings"
 
-export const SiteHeader = () => {
+import SettingsLoadingSkeleton from "./skeletons/settings-skeleton"
+
+interface SiteHeaderProps {
+  children: React.ReactNode
+}
+
+export const SiteHeader = ({ children }: SiteHeaderProps) => {
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background">
       <div className="container flex h-14 items-center space-x-4 sm:justify-between sm:space-x-0">
@@ -17,7 +24,7 @@ export const SiteHeader = () => {
             <SearchInput />
           </Suspense>
 
-          <SiteSettings />
+          <Suspense fallback={<SettingsLoadingSkeleton />}>{children}</Suspense>
 
           <div className="lg:hidden">
             <SiteMenu />
