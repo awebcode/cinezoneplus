@@ -8,8 +8,6 @@ import { tmdbImage } from "@/tmdb/utils"
 import WatchListButton from "./RemoveWatchlistBtn"
 import { getWatchlist, removeWatchlist } from "./actions"
 
-export const revalidate = 10
-
 const Watchlist: React.FC = async () => {
   const user = await auth()
   const watchlist = await getWatchlist(user?.user?.id as string)

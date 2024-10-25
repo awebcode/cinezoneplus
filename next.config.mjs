@@ -2,6 +2,9 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  logging: {
+    level: "verbose",
+  },
   images: {
     remotePatterns: [
       {

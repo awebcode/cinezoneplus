@@ -1,6 +1,6 @@
 "use server"
 
-import { revalidateTag, unstable_cache } from "next/cache"
+import { revalidatePath, revalidateTag, unstable_cache } from "next/cache"
 import { redirect } from "next/navigation"
 import { auth } from "@/auth"
 import { prisma } from "@/prisma/prisma"
@@ -65,6 +65,7 @@ export async function saveWatchlist(
     })
 
     revalidateTag("watchlist")
+    revalidatePath("/")
     return { success: true, message: "Added to watchlist" }
   } catch (error: any) {
     console.error("Failed to save watchlist:", error)
