@@ -5,18 +5,12 @@ import Image from "next/image"
 import { auth } from "@/auth"
 import { tmdbImage } from "@/tmdb/utils"
 
-import WatchListButton from "./RemoveWatchlistBtn"
+import RemoveWatchListButton from "./RemoveWatchlistBtn"
 import { getWatchlist, removeWatchlist } from "./actions"
 
 const Watchlist: React.FC = async () => {
   const user = await auth()
   const watchlist = await getWatchlist(user?.user?.id as string)
-
-  const handleRemove = async (movieId: number) => {
-    "use server"
-    await removeWatchlist(movieId)
-    // Optionally trigger a re-fetch or update UI here.
-  }
 
   return (
     <div className="container mx-auto p-6">
@@ -58,9 +52,15 @@ const Watchlist: React.FC = async () => {
                   </span>
                 </div>
               </div>
-              <WatchListButton onClick={handleRemove} params={movie.movieId}>
-                Remove
-              </WatchListButton>
+              <form
+                action={async () => {
+                  "use server"
+                  await removeWatchlist(movie?.movieId)
+                }}
+              >
+                {" "}
+                <RemoveWatchListButton />
+              </form>
             </li>
           ))}
         </ul>

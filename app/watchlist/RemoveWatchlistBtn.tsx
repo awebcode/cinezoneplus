@@ -1,30 +1,27 @@
 "use client"
 
 import React from "react"
+import { useFormStatus } from "react-dom"
 
 import { cn } from "@/lib/utils"
 
 interface RemoveWatchlistBtnProps
-  extends React.HTMLAttributes<HTMLButtonElement> {
-  children: React.ReactNode
-  onClick: (params: any) => void
-  params?: any
-}
+  extends React.HTMLAttributes<HTMLButtonElement> {}
 const RemoveWatchlistBtn = ({
-  children,
-  onClick,
   className,
-  params,
   ...props
 }: RemoveWatchlistBtnProps) => {
+  const { pending } = useFormStatus()
+
   return (
     <button
       className={cn("cursor-pointer text-sm text-red-400 underline", className)}
-      onClick={() => onClick(params)}
       type="button"
+      disabled={pending}
+      aria-disabled={pending}
       {...props}
     >
-      {children}
+      {pending ? "Removing..." : "Remove"}
     </button>
   )
 }
