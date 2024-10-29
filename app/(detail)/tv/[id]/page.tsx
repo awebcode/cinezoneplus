@@ -6,6 +6,7 @@ import { cn, formatValue, joiner, pad } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
 import { buttonVariants } from "@/components/ui/button"
 import { MediaBackdrop } from "@/components/media-backdrop"
+import ScrollLinkUp from "@/components/shared/ScrollLinkUp"
 
 export default async function Detail({ params }: { params: { id: string } }) {
   const {
@@ -92,7 +93,7 @@ export default async function Detail({ params }: { params: { id: string } }) {
   ]
 
   return (
-    <section className="space-y-4">
+    <section className="space-y-4" onLoad={ScrollLinkUp}>
       <div className="grid grid-cols-2 gap-y-12 rounded border p-6 lg:grid-cols-4">
         {items.map((item) => (
           <div key={item.title}>
