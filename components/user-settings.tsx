@@ -99,7 +99,7 @@ export const UserSettings = () => {
       {session ? (
         <div className="mt-4 space-y-2">
           <Label className="text-xs text-muted-foreground">User</Label>
-          <div className="flex items-center gap-2">
+          <Link href={"/profile"} className="flex items-center gap-2">
             <div>
               <Image
                 src={session.user?.image || "/default-avatar.png"}
@@ -117,7 +117,7 @@ export const UserSettings = () => {
                 {session.user?.email}
               </span>
             </div>
-          </div>
+          </Link>
           <Link href="/watchlist" className="flex  items-center gap-2" prefetch>
             <ShoppingBasket className="mr-2 size-5" /> Watchlist{" "}
             {watchListCount > 0 ? <span>({watchListCount})</span> : null}
