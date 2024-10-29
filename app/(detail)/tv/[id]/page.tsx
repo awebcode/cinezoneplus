@@ -93,7 +93,8 @@ export default async function Detail({ params }: { params: { id: string } }) {
   ]
 
   return (
-    <section className="space-y-4" onLoad={ScrollLinkUp}>
+    <section className="space-y-4">
+      <ScrollLinkUp />
       <div className="grid grid-cols-2 gap-y-12 rounded border p-6 lg:grid-cols-4">
         {items.map((item) => (
           <div key={item.title}>
