@@ -47,7 +47,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
           GeistSans.variable
         )}
       >
-        <HolyLoader color="#ccc" />
+        <HolyLoader color="#4ade80" easing="linear" showSpinner />
         <ThemeProvider attribute="class" defaultTheme="dark">
           <div
             className="relative flex min-h-screen flex-col bg-background"
