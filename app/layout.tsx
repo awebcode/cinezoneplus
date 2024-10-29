@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/toaster"
 import { GridBg } from "@/components/grid-bg"
 import { ScrollTop } from "@/components/scroll-top"
+import ScrollUpClickLink from "@/components/shared/ScrollUpClickLink"
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
@@ -47,6 +48,8 @@ export default async function RootLayout({ children }: RootLayoutProps) {
           GeistSans.variable
         )}
       >
+        <ScrollUpClickLink />
+
         <HolyLoader color="#ccc" />
         <ThemeProvider attribute="class" defaultTheme="dark">
           <div
