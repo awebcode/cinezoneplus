@@ -17,7 +17,11 @@ export function getUniqueItems(list: any[]) {
   const unique = new Map(list.map((item) => [item.id, item]))
   return Array.from(unique.values())
 }
-
+/**
+ *
+ * @param list  A list of combined credits
+ * @returns  An array of unique departments from the combined credits
+ */
 export function getDepartments(list: RawCombinedCredit[]) {
   const departments = new Set(list.map((item) => item.department))
   return Array.from(departments)

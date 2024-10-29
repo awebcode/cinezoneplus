@@ -11,12 +11,13 @@ interface DetailCreditsProps {
 }
 
 export async function generateMetadata({ params }: DetailCreditsProps) {
-  const { title } = await tmdb.movie.detail({
+  const { title, overview } = await tmdb.movie.detail({
     id: params.id,
   })
 
   return {
     title: `Credits - ${title}`,
+    description: overview,
   }
 }
 

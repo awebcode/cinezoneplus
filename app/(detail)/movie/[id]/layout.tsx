@@ -23,12 +23,13 @@ interface DetailLayoutProps {
 }
 
 export async function generateMetadata({ params }: DetailLayoutProps) {
-  const { title } = await tmdb.movie.detail({
+  const { title, overview } = await tmdb.movie.detail({
     id: params.id,
   })
 
   return {
     title,
+    description: overview,
   }
 }
 export const revalidate = 1
